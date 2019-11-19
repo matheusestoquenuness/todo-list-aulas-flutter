@@ -83,8 +83,7 @@ class _TaskDialogState extends State<TaskDialog> {
             onChanged: (String item) => print(_priority),
             selectedItem: _priority,
               ),
-          
-          
+
               
         ],
       ),
@@ -102,6 +101,7 @@ class _TaskDialogState extends State<TaskDialog> {
             if (_formKey.currentState.validate()) {
             _currentTask.title = _titleController.value.text;
             _currentTask.description = _descriptionController.text;
+            _currentTask.priority = _priority;
             Navigator.of(context).pop(_currentTask);
             }
           },

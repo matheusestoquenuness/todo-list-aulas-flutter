@@ -1,4 +1,5 @@
 
+import 'package:flutter/scheduler.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,8 @@ class _HomePageState extends State<HomePage> {
       subtitle: Text( '${task.description} ${task.priority} ' ),
       onChanged: (bool isChecked) {
         setState(() {
-          _indicator += 0.1;
+          _indicator += 0.01;
+         
           task.isDone = isChecked;
         });
 
@@ -105,6 +107,7 @@ class _HomePageState extends State<HomePage> {
           icon: Icons.delete,
           onTap: () {
             _deleteTask(deletedTask: _taskList[index], index: index);
+            _indicator -= 0.01;
           },
         ),
       ],
