@@ -1,3 +1,5 @@
+
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -14,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   List<Task> _taskList = [];
   TaskHelper _helper = TaskHelper();
   bool _loading = true;
+  double _indicator =0;
 
   @override
   void initState() {
@@ -29,11 +32,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Lista de Tarefas')),
+      appBar: AppBar(title: Text('Lista de Tarefas'),
+      actions: <Widget>[
+        new LinearPercentIndicator(
+                width: 140.0,
+                lineHeight: 14.0,
+                percent: _indicator,
+                backgroundColor: Colors.white,
+                progressColor: Colors.greenAccent,
+              ),
+      ],
+      ),
+      
       floatingActionButton:
           FloatingActionButton(child: Icon(Icons.add), onPressed: _addNewTask),
       body: _buildTaskList(),
     );
+    
   }
 
   Widget _buildTaskList() {
@@ -42,21 +57,26 @@ class _HomePageState extends State<HomePage> {
         child: _loading ? CircularProgressIndicator() : Text("Sem tarefas!"),
       );
     } else {
-      return ListView.builder(
-        itemBuilder: _buildTaskItemSlidable,
-        itemCount: _taskList.length,
+
+      return ListView.separated(
+        separatorBuilder: (BuildContext context, int index) => Divider(),
+         itemCount: _taskList.length,
+          itemBuilder: _buildTaskItemSlidable,
+   
       );
     }
   }
+
 
   Widget _buildTaskItem(BuildContext context, int index) {
     final task = _taskList[index];
     return CheckboxListTile(
       value: task.isDone,
       title: Text(task.title),
-      subtitle: Text(task.description),
+      subtitle: Text( '${task.description} ${task.priority} ' ),
       onChanged: (bool isChecked) {
         setState(() {
+          _indicator += 0.1;
           task.isDone = isChecked;
         });
 
