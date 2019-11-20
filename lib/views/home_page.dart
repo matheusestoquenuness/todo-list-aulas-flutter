@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   List<Task> _taskList = [];
   TaskHelper _helper = TaskHelper();
   bool _loading = true;
-  double _indicator =0;
+  double _indicator = 0;
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(title: Text('Lista de Tarefas'),
       actions: <Widget>[
         new LinearPercentIndicator(
-                width: 140.0,
+                width: 100.0,
                 lineHeight: 14.0,
                 percent: _indicator,
                 backgroundColor: Colors.white,
@@ -62,8 +62,7 @@ class _HomePageState extends State<HomePage> {
       return ListView.separated(
         separatorBuilder: (BuildContext context, int index) => Divider(),
          itemCount: _taskList.length,
-          itemBuilder: _buildTaskItemSlidable,
-   
+          itemBuilder: _buildTaskItemSlidable, 
       );
     }
   }
