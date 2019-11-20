@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
     return CheckboxListTile(
       value: task.isDone,
       title: Text(task.title),
-      subtitle: Text( '${task.description} ${task.priority} ' ),
+      subtitle: Text( '${task.description} ${task.priority}' ),
       onChanged: (bool isChecked) {
         setState(() {
           _indicator += 0.01;
